@@ -10,15 +10,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0a0c0f;--panel:#14181e;--cream:#f6eedc;--gold:#e0cc94;--soft:#c9c3b3;--line:#333840}
+  :root{--bg:#0a0c0f;--panel:#14181e;--cream:#f6eedc;--gold:#e0cc94;--soft:#c9c3b3;--price:#FFC933;--line:#333840}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--cream);font-family:'Montserrat',system-ui,sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
   .wrap{max-width:640px;margin:0 auto;padding:0 18px}
 
-  .hero{text-align:center;padding:36px 18px 22px;border-bottom:1px solid var(--line);
-    background:radial-gradient(ellipse at top,#1d1b14 0%,var(--bg) 70%)}
+  .hero{text-align:center;padding:44px 18px 28px;border-bottom:1px solid var(--line)}
   .hero .kicker{font-size:.78rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
-  .hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(3.6rem,17vw,5.6rem);line-height:.95;margin:6px 0 4px;letter-spacing:.02em}
+  .hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(3rem,13vw,4.4rem);line-height:.95;margin:8px 0 6px;letter-spacing:.09em}
   .hero .sub{font-size:.9rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
   .ig{display:inline-block;margin-top:18px;border:1px solid var(--gold);color:var(--cream);text-decoration:none;
     padding:9px 22px;border-radius:99px;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.08em}
@@ -33,7 +32,7 @@
   #menu{scroll-margin-top:72px;padding-bottom:20px}
   section{display:none;padding:26px 0 6px}
   section.on{display:block}
-  .title{display:inline-block;background:var(--cream);color:var(--bg);font-family:'Bebas Neue';font-size:2.3rem;line-height:1.1;
+  .title{display:inline-block;background:var(--cream);color:var(--bg);font-family:'Bebas Neue';font-size:2.1rem;line-height:1.1;
     letter-spacing:.04em;padding:2px 34px 2px 18px;border-radius:0 99px 99px 0;margin-left:-18px;margin-bottom:10px}
   .note{font-size:.85rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin:8px 0 2px;font-weight:600}
   .cols{display:flex;justify-content:flex-end;font-size:.78rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-top:12px;font-weight:600}
@@ -42,21 +41,21 @@
   .row{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
   .row:last-child{border-bottom:0}
   .info{flex:1;min-width:0}
-  .name{font-family:'Bebas Neue';font-size:1.7rem;letter-spacing:.03em;line-height:1.05}
+  .name{font-family:'Bebas Neue';font-size:1.55rem;letter-spacing:.03em;line-height:1.05}
   .desc{font-size:.9rem;color:var(--soft);margin-top:4px;line-height:1.45}
-  .price{font-family:'Bebas Neue';font-size:1.7rem;white-space:nowrap;color:var(--gold);line-height:1.05}
+  .price{font-family:'Bebas Neue';font-size:1.55rem;white-space:nowrap;color:var(--price);line-height:1.05;font-weight:400}
   .price.two{display:flex}
   .price.two span{width:84px;text-align:right}
   .dim{color:#6f6b60}
 
   .group{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:4px 16px 8px}
   .ghead{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 8px;border-bottom:1px solid var(--gold)}
-  .ghead b{font-family:'Bebas Neue';font-weight:400;font-size:1.7rem;color:var(--cream);letter-spacing:.05em}
+  .ghead b{font-family:'Bebas Neue';font-weight:400;font-size:1.55rem;color:var(--cream);letter-spacing:.05em}
 
-  .classic{text-align:center;font-family:'Bebas Neue';font-size:clamp(1.9rem,8vw,2.5rem);letter-spacing:.04em;margin:8px 0 2px;line-height:1.1}
+  .classic{text-align:center;font-family:'Bebas Neue';font-size:clamp(1.7rem,7vw,2.2rem);letter-spacing:.04em;margin:8px 0 2px;line-height:1.1}
   table{width:100%;border-collapse:collapse;margin-top:16px;background:var(--panel);border-radius:12px;overflow:hidden}
   th{font-weight:600;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;padding:12px 6px;text-align:center}
-  td{padding:12px 6px;text-align:center;border-top:1px solid var(--line);font-family:'Bebas Neue';font-size:1.5rem;color:var(--cream)}
+  td{padding:12px 6px;text-align:center;border-top:1px solid var(--line);font-family:'Bebas Neue';font-size:1.4rem;color:var(--cream)}
   td:first-child{text-align:left;padding-left:12px;font-family:'Montserrat';font-size:.8rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;font-weight:600}
 
   .pn{display:flex;gap:10px;margin-top:26px}
@@ -64,11 +63,27 @@
     border-radius:14px;padding:14px 8px;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.05em}
 
   footer{text-align:center;padding:36px 18px 60px;border-top:1px solid var(--line);color:var(--soft);font-size:.95rem}
-  footer .big{font-family:'Bebas Neue';font-size:2.2rem;color:var(--cream);letter-spacing:.05em}
+  footer .big{font-family:'Bebas Neue';font-size:2rem;color:var(--cream);letter-spacing:.05em}
   footer a{color:var(--gold);text-decoration:none;font-weight:600}
   .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
   .act{border:1px solid var(--gold);color:var(--cream);padding:11px 20px;border-radius:99px;font-weight:600;text-decoration:none;font-size:.95rem}
   .act.fill{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+
+  /* acabamento: transições e entrada suave */
+  .act,.next,.ig,#tabs button{transition:background .25s,color .25s,transform .2s,border-color .25s}
+  .act:hover,.next:hover,.ig:hover{transform:translateY(-2px)}
+  .ig:hover,.next:hover,.act:not(.fill):hover{background:var(--cream);color:var(--bg)}
+  .act:active,.next:active{transform:scale(.97)}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .title,.row,.group,table,.pn{animation:fade .55s both}
+  .row:nth-child(2){animation-delay:.05s}.row:nth-child(3){animation-delay:.1s}.row:nth-child(4){animation-delay:.15s}.row:nth-child(5){animation-delay:.2s}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .pr3{font-size:.92rem;color:var(--soft);margin:2px 0 8px}
+  .three .cols span,.three .price.two span{width:62px}
+  .three .price{font-size:1.4rem}
+  .r3{flex-wrap:wrap;align-items:center;row-gap:2px}
+  .r3 .full{flex:0 0 100%;margin-top:0}
 </style>
 </head>
 <body>
@@ -80,7 +95,7 @@
   <a class="ig" href="https://instagram.com/donaterezabr" target="_blank" rel="noopener">@donaterezabr</a>
   <div class="actions">
     <a class="act fill" href="https://wa.me/55NUMERO_DO_BAR?text=Ol%C3%A1!%20Vim%20pelo%20card%C3%A1pio" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-    <a class="act" href="LINK_AVALIACAO_GOOGLE" target="_blank" rel="noopener">⭐ Avaliar no Google</a>
+    <a class="act" href="LINK_AVALIACAO_GOOGLE" target="_blank" rel="noopener">Avaliar no Google</a>
   </div>
 </header>
 
@@ -94,7 +109,7 @@
   <p style="margin-top:12px"><a href="https://instagram.com/donaterezabr" target="_blank" rel="noopener">@donaterezabr</a></p>
   <div class="actions">
     <a class="act fill" href="https://wa.me/55NUMERO_DO_BAR?text=Ol%C3%A1!%20Vim%20pelo%20card%C3%A1pio" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-    <a class="act" href="LINK_AVALIACAO_GOOGLE" target="_blank" rel="noopener">⭐ Avaliar no Google</a>
+    <a class="act" href="LINK_AVALIACAO_GOOGLE" target="_blank" rel="noopener">Avaliar no Google</a>
   </div>
   <!-- Adicione aqui endereço e horários -->
 </footer>
@@ -104,25 +119,33 @@ const R = n => n==null ? '<span class="dim">—</span>' : 'R$ ' + n.toFixed(2).r
 
 const MENU = [
   { id:'porcoes', title:'Porções', cols:['Média','Inteira'], items:[
-    {n:'Batata', p:[25,30]},
-    {n:'Batata c/ bacon', d:'Cheddar ou catupiry', p:[42,55]},
-    {n:'Anel de cebola', p:[26,34]},
-    {n:'Isca de tilápia', p:[null,59]},
-    {n:'Isca de frango dorê', p:[null,59]},
-    {n:'Frango a passarinho', p:[null,49]},
-    {n:'Meio da asa', p:[null,49]},
-    {n:'Panceta', p:[null,55]},
-    {n:'Porpeta', p:[null,49]},
-    {n:'Croquete de aipim', p:[null,49]},
-    {n:'10 mini pastel', d:'Costela ou queijo', p:[null,45]}
+    {n:'Batata', d:'Crocante por fora, macia por dentro. A clássica de bar.', p:[25,30]},
+    {n:'Batata c/ bacon', d:'Batata coberta de bacon crocante, com cheddar ou catupiry.', p:[42,55]},
+    {n:'Anel de cebola', d:'Empanado dourado, sequinho e bem crocante.', p:[26,34]},
+    {n:'Isca de tilápia', d:'Iscas douradas, macias por dentro.', p:[null,59]},
+    {n:'Isca de frango dorê', d:'Frango empanado, dourado e suculento.', p:[null,59]},
+    {n:'Frango a passarinho', d:'Pedacinhos fritos, temperados e crocantes.', p:[null,49]},
+    {n:'Tulipas', d:'Tulipas de frango fritas, crocantes e suculentas.', p:[null,49]},
+    {n:'Panceta', d:'Sequinha por fora, macia por dentro.', p:[null,55]},
+    {n:'12 mini pastéis', d:'Doze minipastéis crocantes, de costela ou queijo.', p:[null,45]}
   ]},
   { id:'chapeados', title:'Chapeados', items:[
-    {n:'Picanha', d:'Picanha em isca feita na chapa. Acompanha batata rústica, salada e pão. Serve 3 a 4 pessoas.', p:149},
-    {n:'Contra filé', d:'Contrafilé em isca feito na chapa. Acompanha batata palito, salada e pão. Serve 3 a 4 pessoas.', p:139},
-    {n:'Linguiça caipira', d:'Feita na chapa. Acompanha batata palito e pão. Serve 2 pessoas.', p:69.9}
+    {n:'Picanha', d:'Picanha em isca feita na chapa. Acompanha batata palito e pão. Serve 3 a 4 pessoas.', p:149},
+    {n:'Contra filé', d:'Contrafilé em isca feito na chapa. Acompanha batata palito e pão. Serve 3 a 4 pessoas.', p:139},
+    {n:'Linguiça', d:'Linguiça caipira feita na chapa. Acompanha batata palito e pão. Serve 2 pessoas.', p:69.9},
+    {n:'Calabresa acebolada', d:'Calabresa na chapa com cebola dourada. Acompanha anel de cebola e pão.', p:49.9}
+  ]},
+  { id:'bolinhos', title:'Bolinhos', items:[
+    {n:'Bolinha de linguiça', d:'Massa crocante, recheio suculento de linguiça.', p:35},
+    {n:'Bolinho de costela', d:'Massa crocante recheada de costela macia.', p:35},
+    {n:'Porpeta', d:'Macia, bem temperada e feita para dividir.', p:35}
+  ]},
+  { id:'lanches', title:'Lanches', items:[
+    {n:'Choripan', d:'Pão crocante com linguiça suculenta na chapa.', p:32},
+    {n:'Lanche de costela', d:'Pão macio com costela desfiada e bem temperada.', p:34}
   ]},
   { id:'petiscos', title:'Petiscos', items:[
-    {n:'Amendoim', p:9.9},
+    {n:'Amendoim', d:'Torradinho e salgado, para beliscar.', p:9.9},
     {n:'Tábua de frios', d:'Salame, queijo, azeitona e pimenta biquinho.', p:49.9}
   ]},
   { id:'caipirinhas', title:'Caipirinhas', custom:true },
@@ -171,22 +194,17 @@ const row = it => {
   return `<div class="row"><div class="info"><div class="name">${it.n}</div>${it.d?`<div class="desc">${it.d}</div>`:''}</div>${price}</div>`;
 };
 
-const caipirinhas = `
-  <div class="note" style="text-align:center">Clássicas</div>
-  <div class="classic">Limão · Morango · Maracujá</div>
-  <div class="note" style="text-align:center;margin-top:20px">Premium</div>
-  ${[
+const row3 = it => `<div class="row r3"><div class="info"><div class="name">${it.n}</div></div><div class="price two">${it.p.map(v=>`<span>${R(v).replace(',00','')}</span>`).join('')}</div>${it.d?`<div class="desc full">${it.d}</div>`:''}</div>`;
+const cph = `<div class="cols"><span>Cachaça</span><span>Sakê</span><span>Vodka</span></div>`;
+const grp = (h, pr, items) => `<div class="group three"><div class="cols"><span>Cachaça</span><span>Sakê</span><span>Vodka</span></div><div class="ghead"><b>${h}</b><div class="price two">${pr.map(v=>`<span>R$ ${v}</span>`).join('')}</div></div>${items.map(row).join('')}</div>`;
+const caipirinhas =
+  grp('Simples', [25,29,31], [{n:'Limão'},{n:'Morango'},{n:'Maracujá'}]) +
+  grp('Premium', [31,35,37], [
     {n:'Dois limões', d:'Limão tahiti, limão siciliano e rapadura.'},
     {n:'Tropical', d:'Morango e maracujá.'},
     {n:'Caju amigo', d:'Caju e limão siciliano.'},
     {n:'Caipikiwi', d:'Kiwi e limão.'}
-  ].map(row).join('')}
-  <table>
-    <tr><th></th><th>Cachaça</th><th>Sakê</th><th>Vodka</th></tr>
-    <tr><td>Clássicas</td><td>R$ 25</td><td>R$ 29</td><td>R$ 31</td></tr>
-    <tr><td>Premium</td><td>R$ 31</td><td>R$ 35</td><td>R$ 37</td></tr>
-  </table>`;
-
+  ]);
 const tabs = document.getElementById('tabs');
 const menu = document.getElementById('menu');
 
@@ -204,12 +222,12 @@ MENU.forEach((s, i) => {
     `<div class="group"><div class="ghead"><b>${g.h}</b><span class="price">${R(g.p)}</span></div>${g.items.map(row).join('')}</div>`).join('');
   else body = (s.cols ? `<div class="cols">${s.cols.map(c=>`<span>${c}</span>`).join('')}</div>` : '') + s.items.map(row).join('');
 
-  const next = MENU[i+1];
   const prev = MENU[i-1];
-  const nextBtn = `<div class="pn">${prev ? `<button type="button" class="next" data-go="${prev.id}">← ${prev.title}</button>` : ''}${next ? `<button type="button" class="next" data-go="${next.id}">${next.title} →</button>` : ''}</div>`;
+  const next = MENU[i+1];
+  const nav = `<div class="pn">${prev ? `<button type="button" class="next" data-go="${prev.id}">← ${prev.title}</button>` : ''}${next ? `<button type="button" class="next" data-go="${next.id}">${next.title} →</button>` : ''}</div>`;
 
   menu.insertAdjacentHTML('beforeend',
-    `<section id="${s.id}"><div class="title">${s.title}</div>${s.note?`<div class="note">${s.note}</div>`:''}${body}${nextBtn}</section>`);
+    `<section id="${s.id}"><div class="title">${s.title}</div>${s.note?`<div class="note">${s.note}</div>`:''}${body}${nav}</section>`);
 });
 
 menu.addEventListener('click', e => {
