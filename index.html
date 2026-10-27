@@ -84,23 +84,6 @@
   .three .price{font-size:1.4rem}
   .r3{flex-wrap:wrap;align-items:center;row-gap:2px}
   .r3 .full{flex:0 0 100%;margin-top:0}
-
-  /* promoções: em dobro (modal) e happy hour */
-  .hh-info{font-size:.95rem;color:var(--gold);letter-spacing:.06em;margin:6px 0 4px;font-weight:600}
-  .was{display:block;text-align:right;font-family:'Montserrat';font-size:.8rem;color:#8a8577;text-decoration:line-through;margin-top:3px}
-  .hh-cat{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:22px 0 -4px}
-  #dobro{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;padding:18px}
-  #dobro.show{display:flex}
-  #dobro .box{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:30px 24px 26px;text-align:center;animation:pop .35s both}
-  #dobro .k{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
-  #dobro h2{font-family:'Bebas Neue';font-weight:400;font-size:clamp(3rem,16vw,4.2rem);line-height:.95;margin:8px 0 6px;letter-spacing:.03em}
-  #dobro .rule{color:var(--soft);font-size:.95rem;margin-bottom:14px}
-  #dobro ul{list-style:none;margin:10px 0 22px}
-  #dobro li{font-family:'Bebas Neue';font-size:1.9rem;letter-spacing:.04em;padding:8px 0;border-bottom:1px solid var(--line)}
-  #dobro li:last-child{border-bottom:0}
-  #dobro li span{color:var(--price)}
-  #dobro .act{border:0;cursor:pointer;font-family:inherit}
-  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -131,44 +114,7 @@
   <!-- Adicione aqui endereço e horários -->
 </footer>
 
-<div id="dobro" role="dialog" aria-modal="true" aria-labelledby="dobroT">
-  <div class="box">
-    <div class="k">Fim de semana</div>
-    <h2 id="dobroT">Em dobro</h2>
-    <div class="rule" id="dobroRegra"></div>
-    <ul id="dobroLista"></ul>
-    <button type="button" class="act fill" id="dobroOk">Ver cardápio</button>
-  </div>
-</div>
-
 <script>
-
-/* ============ PROMOÇÕES: ligue ou desligue aqui (true / false) ============ */
-const CONFIG_PROMOS = {
-  dobroAtivo: true,     // true para ativar os itens em dobro (final de semana)
-  happyHourAtivo: true  // true para ativar o Happy Hour (segunda a sexta)
-};
-
-// Em dobro (aparece em um aviso ao abrir o site)
-const DOBRO_REGRA = 'Peça 1 e leve 2';   // texto da regra, edite se for diferente
-const DOBRO_ITENS = ['Caipirinha em dobro', 'Chopp em dobro', 'Gin em dobro'];
-
-// Happy Hour: segunda a sexta, das 17h às 20h (edite os itens e preços aqui)
-const HH_HORARIO = 'Segunda a sexta, das 17h às 20h';
-const HH_ITENS = [
-  { cat:'Cervejas',    n:'Chopp',                 d:'Gelado, na hora.',                         de:11.9, por:9.9  },
-  { cat:'Cervejas',    n:'Petra',                 d:'Garrafa 600 ml.',                          de:10.9, por:8.9  },
-  { cat:'Cervejas',    n:'Brahma',                d:'Garrafa 600 ml.',                          de:11.9, por:9.9  },
-  { cat:'Drinks',      n:'Caipirinha simples',    d:'Limão, morango ou maracujá, com cachaça.', de:25,   por:19.9 },
-  { cat:'Drinks',      n:'Aperol Spritz',         d:'Aperol, espumante, água com gás e suco de laranja.', de:25.9, por:21.9 },
-  { cat:'Drinks',      n:'Mojito',                d:'Rum branco, limão, hortelã e água com gás.', de:25.9, por:21.9 },
-  { cat:'Drinks',      n:'Gin tônica',            d:'Gin, tônica e limão siciliano, maracujá ou morango.', de:35.9, por:29.9 },
-  { cat:'Porções',     n:'Batata (média)',        d:'Crocante por fora, macia por dentro.',     de:25,   por:20   },
-  { cat:'Porções',     n:'Anel de cebola (média)',d:'Empanado dourado, sequinho e bem crocante.', de:26, por:21   },
-  { cat:'Bolinhos',    n:'Bolinho de linguiça',   d:'Massa crocante, recheio suculento de linguiça.', de:35, por:29.9 },
-  { cat:'Bolinhos',    n:'Porpeta',               d:'Macia, bem temperada e feita para dividir.', de:35, por:29.9 }
-];
-/* ========================================================================= */
 const R = n => n==null ? '<span class="dim">—</span>' : 'R$ ' + n.toFixed(2).replace('.', ',');
 
 const MENU = [
@@ -259,16 +205,6 @@ const caipirinhas =
     {n:'Caju amigo', d:'Caju e limão siciliano.'},
     {n:'Caipikiwi', d:'Kiwi e limão.'}
   ]);
-const hhBody = () => {
-  let out = `<div class="hh-info">${HH_HORARIO}</div>`, cat = '';
-  HH_ITENS.forEach(it => {
-    if (it.cat !== cat) { cat = it.cat; out += `<div class="hh-cat">${cat}</div>`; }
-    out += `<div class="row"><div class="info"><div class="name">${it.n}</div><div class="desc">${it.d}</div></div><div class="price">${R(it.por)}<span class="was">${R(it.de)}</span></div></div>`;
-  });
-  return out;
-};
-if (CONFIG_PROMOS.happyHourAtivo) MENU.unshift({ id:'happyhour', title:'Happy Hour', hh:true });
-
 const tabs = document.getElementById('tabs');
 const menu = document.getElementById('menu');
 
@@ -281,8 +217,7 @@ MENU.forEach((s, i) => {
   tabs.appendChild(b);
 
   let body = '';
-  if (s.hh) body = hhBody();
-  else if (s.custom) body = caipirinhas;
+  if (s.custom) body = caipirinhas;
   else if (s.groups) body = s.groups.map(g =>
     `<div class="group"><div class="ghead"><b>${g.h}</b><span class="price">${R(g.p)}</span></div>${g.items.map(row).join('')}</div>`).join('');
   else body = (s.cols ? `<div class="cols">${s.cols.map(c=>`<span>${c}</span>`).join('')}</div>` : '') + s.items.map(row).join('');
@@ -312,18 +247,6 @@ function show(id, jump) {
 }
 
 show(MENU[0].id, false);
-
-/* aviso "Em dobro" ao abrir o site (só quando dobroAtivo = true) */
-if (CONFIG_PROMOS.dobroAtivo) {
-  const box = document.getElementById('dobro');
-  document.getElementById('dobroRegra').textContent = DOBRO_REGRA;
-  document.getElementById('dobroLista').innerHTML = DOBRO_ITENS.map(t => {
-    const w = t.split(' em dobro')[0];
-    return `<li>${w} <span>em dobro</span></li>`;
-  }).join('');
-  const fechar = () => { box.classList.remove('show'); try { sessionStorage.setItem('dobroVisto', '1'); } catch(e) {} };
-  let visto = false; try { visto = sessionStorage.getItem('dobroVisto') === '1'; } catch(e) {}
-  if (!visto) { box.classList.add('show'); document.getElementById('dobroOk').focus(); }
-  document.getElementById('dobroOk').addEventListener('click', fechar);
-  box.addEventListener('click', e => { if (e.target === box) fechar(); });
-  document.addEventListener('keydown', e => { if (e.
+</script>
+</body>
+</html>
