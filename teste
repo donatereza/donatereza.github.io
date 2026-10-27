@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cardápio | Dona Tereza Bar & Restaurante</title>
+<meta name="description" content="Cardápio digital do Dona Tereza Bar & Restaurante: porções, chapeados, petiscos, drinks, cervejas e bebidas.">
+<meta name="theme-color" content="#0a0c0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0c0f;--panel:#14181e;--cream:#f6eedc;--gold:#e0cc94;--soft:#c9c3b3;--price:#FFC933;--line:#333840}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--cream);font-family:'Montserrat',system-ui,sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+  .hero{text-align:center;padding:44px 18px 28px;border-bottom:1px solid var(--line)}
+  .hero .kicker{font-size:.78rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
+  .hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(3rem,13vw,4.4rem);line-height:.95;margin:8px 0 6px;letter-spacing:.09em}
+  .hero .sub{font-size:.9rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
+  .ig{display:inline-block;margin-top:18px;border:1px solid var(--gold);color:var(--cream);text-decoration:none;
+    padding:9px 22px;border-radius:99px;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.08em}
+
+  nav{position:sticky;top:0;z-index:10;background:#0a0c0f;border-bottom:1px solid var(--line)}
+  #tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 18px;scrollbar-width:none;max-width:640px;margin:0 auto}
+  #tabs::-webkit-scrollbar{display:none}
+  #tabs button{flex:0 0 auto;cursor:pointer;background:transparent;color:var(--cream);font-family:'Bebas Neue';font-size:1.3rem;
+    letter-spacing:.06em;padding:8px 20px;border-radius:99px;border:1px solid var(--line);-webkit-tap-highlight-color:transparent}
+  #tabs button.on{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+
+  #menu{scroll-margin-top:72px;padding-bottom:20px}
+  section{display:none;padding:26px 0 6px}
+  section.on{display:block}
+  .title{display:inline-block;background:var(--cream);color:var(--bg);font-family:'Bebas Neue';font-size:2.1rem;line-height:1.1;
+    letter-spacing:.04em;padding:2px 34px 2px 18px;border-radius:0 99px 99px 0;margin-left:-18px;margin-bottom:10px}
+  .note{font-size:.85rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin:8px 0 2px;font-weight:600}
+  .cols{display:flex;justify-content:flex-end;font-size:.78rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-top:12px;font-weight:600}
+  .cols span{width:84px;text-align:right}
+
+  .row{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:0}
+  .info{flex:1;min-width:0}
+  .name{font-family:'Bebas Neue';font-size:1.55rem;letter-spacing:.03em;line-height:1.05}
+  .desc{font-size:.9rem;color:var(--soft);margin-top:4px;line-height:1.45}
+  .price{font-family:'Bebas Neue';font-size:1.55rem;white-space:nowrap;color:var(--price);line-height:1.05;font-weight:400}
+  .price.two{display:flex}
+  .price.two span{width:84px;text-align:right}
+  .dim{color:#6f6b60}
+
+  .group{margin-top:22px}
+  .ghead{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 8px;border-bottom:1px solid var(--gold)}
+  .ghead b{font-family:'Bebas Neue';font-weight:400;font-size:1.55rem;color:var(--cream);letter-spacing:.05em}
+
+  .classic{text-align:center;font-family:'Bebas Neue';font-size:clamp(1.7rem,7vw,2.2rem);letter-spacing:.04em;margin:8px 0 2px;line-height:1.1}
+  table{width:100%;border-collapse:collapse;margin-top:16px;background:var(--panel);border-radius:12px;overflow:hidden}
+  th{font-weight:600;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;padding:12px 6px;text-align:center}
+  td{padding:12px 6px;text-align:center;border-top:1px solid var(--line);font-family:'Bebas Neue';font-size:1.4rem;color:var(--cream)}
+  td:first-child{text-align:left;padding-left:12px;font-family:'Montserrat';font-size:.8rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;font-weight:600}
+
+  .pn{display:flex;gap:10px;margin-top:26px}
+  .next{flex:1;cursor:pointer;background:transparent;color:var(--cream);border:1px solid var(--gold);
+    border-radius:14px;padding:14px 8px;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.05em}
+
+  footer{text-align:center;padding:36px 18px 60px;border-top:1px solid var(--line);color:var(--soft);font-size:.95rem}
+  footer .big{font-family:'Bebas Neue';font-size:2rem;color:var(--cream);letter-spacing:.05em}
+  footer a{color:var(--gold);text-decoration:none;font-weight:600}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+  .act{border:1px solid var(--gold);color:var(--cream);padding:11px 20px;border-radius:99px;font-weight:600;text-decoration:none;font-size:.95rem}
+  .act.fill{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+
+  /* acabamento: transições e entrada suave */
+  .act,.next,.ig,#tabs button{transition:background .25s,color .25s,transform .2s,border-color .25s}
+  .act:hover,.next:hover,.ig:hover{transform:translateY(-2px)}
+  .ig:hover,.next:hover,.act:not(.fill):hover{background:var(--cream);color:var(--bg)}
+  .act:active,.next:active{transform:scale(.97)}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .title,.row,.group,table,.pn{animation:fade .55s both}
+  .row:nth-child(2){animation-delay:.05s}.row:nth-child(3){animation-delay:.1s}.row:nth-child(4){animation-delay:.15s}.row:nth-child(5){animation-delay:.2s}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .pr3{font-size:.92rem;color:var(--soft);margin:2px 0 8px}
+  .three .cols span,.three .price.two span{width:62px}
+  .three .price{font-size:1.4rem}
+  .r3{flex-wrap:wrap;align-items:center;row-gap:2px}
+  .r3 .full{flex:0 0 100%;margin-top:0}
+
+  /* ===== PROMOÇÕES (blocos fixos no topo) ===== */
+  #promos:empty{display:none}
+  #promos{padding-top:18px;display:grid;gap:12px}
+  .promo{background:var(--panel);border:1px solid var(--gold);border-radius:16px;padding:16px 18px;text-align:center}
+  .promo .note{margin:0 0 2px}
+  .promo .ptitle{font-family:'Bebas Neue';font-size:clamp(2rem,9vw,2.6rem);line-height:1.05;letter-spacing:.04em;color:var(--price)}
+  .promo .psub{font-size:.9rem;color:var(--soft);margin-top:2px}
+  .promo .ptitle + .ptitle{margin-top:4px}
+  .promo.hh{text-align:left}
+  .promo.hh .ptitle{text-align:center;margin-bottom:4px}
+  .promo.hh .note{text-align:center}
+  .hh .ghead{margin-top:10px;padding-top:10px}
+  .hh .row{padding:10px 0;align-items:baseline}
+  .hh .name{font-size:1.35rem}
+  .hh .was{font-family:'Bebas Neue';font-size:1.1rem;color:#6f6b60;text-decoration:line-through;margin-right:8px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Bar &amp; Restaurante</div>
+  <h1>Dona Tereza</h1>
+  <div class="sub">Cardápio</div>
+  <a class="ig" href="https://instagram.com/donaterezabr" target="_blank" rel="noopener">@donaterezabr</a>
+  <div class="actions">
+    <a class="act fill" href="https://wa.me/55NUMERO_DO_BAR?text=Ol%C3%A1!%20Vim%20pelo%20card%C3%A1pio" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    <a class="act" href="https://search.google.com/local/writereview?placeid=ChIJpfjlskBnv5QR_dJiqKo5Krk" target="_blank" rel="noopener">Avaliar no Google</a>
+  </div>
+</header>
+
+<div class="wrap" id="promos" aria-live="polite"></div>
+
+<nav><div id="tabs"></div></nav>
+
+<main class="wrap" id="menu"></main>
+
+<footer>
+  <div class="big">Dona Tereza</div>
+  <p>Bar &amp; Restaurante</p>
+  <p style="margin-top:12px"><a href="https://instagram.com/donaterezabr" target="_blank" rel="noopener">@donaterezabr</a></p>
+  <div class="actions">
+    <a class="act fill" href="https://wa.me/55NUMERO_DO_BAR?text=Ol%C3%A1!%20Vim%20pelo%20card%C3%A1pio" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    <a class="act" href="https://search.google.com/local/writereview?placeid=ChIJpfjlskBnv5QR_dJiqKo5Krk" target="_blank" rel="noopener">Avaliar no Google</a>
+  </div>
+  <!-- Adicione aqui endereço e horários -->
+</footer>
+
+<script>
+/* ============ CHAVES DAS PROMOÇÕES (edite direto no GitHub) ============ */
+const CONFIG_PROMOS = {
+  dobroAtivo: true,     // true para ativar os itens em dobro (qua/qui: Gin | sáb: Caipirinha e Chopp)
+  happyHourAtivo: true  // true para ativar o Happy Hour (seg a sex, 17h às 20h)
+};
+const AJUSTES_PROMOS = {
+  descontoHH: 20,   // % de desconto do Happy Hour (itens sem preço fixo "por")
+  diaTeste: null,   // para testar: 0=Dom 1=Seg 2=Ter 3=Qua 4=Qui 5=Sex 6=Sáb (null = dia real)
+  horaTeste: null   // para testar: 0 a 23 (null = hora real)
+};
+/* ======================================================================= */
+
+const R = n => n==null ? '<span class="dim">—</span>' : 'R$ ' + n.toFixed(2).replace('.', ',');
+
+const MENU = [
+  { id:'porcoes', title:'Porções', cols:['Média','Inteira'], items:[
+    {n:'Batata', d:'Crocante por fora, macia por dentro. A clássica de bar.', p:[25,30]},
+    {n:'Batata c/ bacon', d:'Batata coberta de bacon crocante, com cheddar ou catupiry.', p:[42,55]},
+    {n:'Anel de cebola', d:'Empanado dourado, sequinho e bem crocante.', p:[26,34]},
+    {n:'Isca de tilápia', d:'Iscas douradas, macias por dentro.', p:[null,59]},
+    {n:'Isca de frango dorê', d:'Frango empanado, dourado e suculento.', p:[null,59]},
+    {n:'Frango a passarinho', d:'Pedacinhos fritos, temperados e crocantes.', p:[null,49]},
+    {n:'Tulipas', d:'Tulipas de frango fritas, crocantes e suculentas.', p:[null,49]},
+    {n:'Panceta', d:'Sequinha por fora, macia por dentro.', p:[null,55]},
+    {n:'12 mini pastéis', d:'Doze minipastéis crocantes, de costela ou queijo.', p:[null,45]}
+  ]},
+  { id:'chapeados', title:'Chapeados', items:[
+    {n:'Picanha', d:'Picanha em isca feita na chapa. Acompanha batata palito e pão. Serve 3 a 4 pessoas.', p:149},
+    {n:'Contra filé', d:'Contrafilé em isca feito na chapa. Acompanha batata palito e pão. Serve 3 a 4 pessoas.', p:139},
+    {n:'Linguiça', d:'Linguiça caipira feita na chapa. Acompanha batata palito e pão. Serve 2 pessoas.', p:69.9},
+    {n:'Calabresa acebolada', d:'Calabresa na chapa com cebola dourada. Acompanha anel de cebola e pão.', p:49.9}
+  ]},
+  { id:'bolinhos', title:'Bolinhos', items:[
+    {n:'Bolinho de linguiça', d:'Massa crocante, recheio suculento de linguiça.', p:35},
+    {n:'Porpeta', d:'Macia, bem temperada e feita para dividir.', p:35},
+    {n:'Bolinho de costela', d:'Massa crocante recheada de costela macia.', p:45}
+  ]},
+  { id:'lanches', title:'Lanches', items:[
+    {n:'Choripan', d:'Pão crocante com linguiça suculenta na chapa.', p:32},
+    {n:'Lanche de costela', d:'Pão macio com costela desfiada e bem temperada.', p:34}
+  ]},
+  { id:'petiscos', title:'Petiscos', items:[
+    {n:'Amendoim', d:'Torradinho e salgado, para beliscar.', p:9.9},
+    {n:'Tábua de frios', d:'Salame, queijo, azeitona e pimenta biquinho.', p:49.9}
+  ]},
+  { id:'caipirinhas', title:'Caipirinhas', custom:true },
+  { id:'gins', title:'Gins', groups:[
+    {h:'Com energético', p:37.9, items:[
+      {n:'Melancia', d:'Gin, hortelã e energético de melancia.'},
+      {n:'Tropical', d:'Gin, hortelã e energético tropical.'},
+      {n:'Morango e pêssego', d:'Gin e energético de morango e pêssego.'}
+    ]},
+    {h:'Gin tônica', p:35.9, items:[
+      {n:'Limão siciliano', d:'Gin, tônica e limão siciliano.'},
+      {n:'Maracujá', d:'Gin, tônica e maracujá.'},
+      {n:'Morango', d:'Gin, tônica e morango.'}
+    ]}
+  ]},
+  { id:'classicos', title:'Clássicos', items:[
+    {n:'Moscow Mule', d:'Vodka Smirnoff, xarope de gengibre, limão e espuma de gengibre.', p:29.9},
+    {n:'Aperol Spritz', d:'Aperol, espumante, água com gás e suco de laranja.', p:25.9},
+    {n:'Mojito', d:'Rum branco, suco de limão, hortelã e água com gás.', p:25.9}
+  ]},
+  { id:'cervejas', title:'Cervejas', note:'Garrafa 600 ml (exceto chopp)', items:[
+    {n:'Heineken', p:17.9},
+    {n:'Antarctica Original', p:15.9},
+    {n:'Eisenbahn', p:13.9},
+    {n:'Antarctica Boa', p:11.9},
+    {n:'Brahma', p:11.9},
+    {n:'Chopp', p:11.9},
+    {n:'Petra', p:10.9}
+  ]},
+  { id:'bebidas', title:'Bebidas', items:[
+    {n:'Água sem gás', p:5},
+    {n:'Água c/ gás', p:5},
+    {n:'Refrigerante lata', p:7},
+    {n:'Tônica lata', p:7},
+    {n:'Energético', d:'Red Bull ou Monster.', p:14},
+    {n:'Cu de burro', d:'Sal c/ limão.', p:5},
+    {n:'Soda italiana', d:'Água c/ gás e xarope de frutas: limão, maracujá, maçã verde, morango ou frutas vermelhas.', p:10},
+    {n:'Sucos', d:'Laranja.', p:9}
+  ]}
+];
+
+const row = it => {
+  const price = Array.isArray(it.p)
+    ? `<div class="price two">${it.p.map(v=>`<span>${R(v)}</span>`).join('')}</div>`
+    : (it.p!=null ? `<div class="price">${R(it.p)}</div>` : '');
+  return `<div class="row"><div class="info"><div class="name">${it.n}</div>${it.d?`<div class="desc">${it.d}</div>`:''}</div>${price}</div>`;
+};
+
+const row3 = it => `<div class="row r3"><div class="info"><div class="name">${it.n}</div></div><div class="price two">${it.p.map(v=>`<span>${R(v).replace(',00','')}</span>`).join('')}</div>${it.d?`<div class="desc full">${it.d}</div>`:''}</div>`;
+const cph = `<div class="cols"><span>Cachaça</span><span>Sakê</span><span>Vodka</span></div>`;
+const grp = (h, pr, items) => `<div class="group three"><div class="cols"><span>Cachaça</span><span>Sakê</span><span>Vodka</span></div><div class="ghead"><b>${h}</b><div class="price two">${pr.map(v=>`<span>R$ ${v}</span>`).join('')}</div></div>${items.map(row).join('')}</div>`;
+const caipirinhas =
+  grp('Simples', [25,29,31], [{n:'Limão'},{n:'Morango'},{n:'Maracujá'}]) +
+  grp('Premium', [31,35,37], [
+    {n:'Dois limões', d:'Limão tahiti, limão siciliano e rapadura.'},
+    {n:'Tropical', d:'Morango e maracujá.'},
+    {n:'Caju amigo', d:'Caju e limão siciliano.'},
+    {n:'Caipikiwi', d:'Kiwi e limão.'}
+  ]);
+const tabs = document.getElementById('tabs');
+const menu = document.getElementById('menu');
+
+MENU.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = s.title;
+  b.dataset.id = s.id;
+  b.addEventListener('click', () => show(s.id, true));
+  tabs.appendChild(b);
+
+  let body = '';
+  if (s.custom) body = caipirinhas;
+  else if (s.groups) body = s.groups.map(g =>
+    `<div class="group"><div class="ghead"><b>${g.h}</b><span class="price">${R(g.p)}</span></div>${g.items.map(row).join('')}</div>`).join('');
+  else body = (s.cols ? `<div class="cols">${s.cols.map(c=>`<span>${c}</span>`).join('')}</div>` : '') + s.items.map(row).join('');
+
+  const prev = MENU[i-1];
+  const next = MENU[i+1];
+  const nav = `<div class="pn">${prev ? `<button type="button" class="next" data-go="${prev.id}">← ${prev.title}</button>` : ''}${next ? `<button type="button" class="next" data-go="${next.id}">${next.title} →</button>` : ''}</div>`;
+
+  menu.insertAdjacentHTML('beforeend',
+    `<section id="${s.id}"><div class="title">${s.title}</div>${s.note?`<div class="note">${s.note}</div>`:''}${body}${nav}</section>`);
+});
+
+menu.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) show(g.dataset.go, true);
+});
+
+function show(id, jump) {
+  document.querySelectorAll('section').forEach(s => s.classList.toggle('on', s.id === id));
+  const btns = [...tabs.querySelectorAll('button')];
+  btns.forEach(b => b.classList.toggle('on', b.dataset.id === id));
+  const on = btns.find(b => b.dataset.id === id);
+  if (on) tabs.scrollTo({left: on.offsetLeft - tabs.clientWidth/2 + on.clientWidth/2, behavior:'smooth'});
+  if (jump) {
+    try { menu.scrollIntoView({block:'start', behavior:'smooth'}); } catch(e) { window.scrollTo(0, menu.offsetTop - 70); }
+  }
+}
+
+show(MENU[0].id, false);
+
+/* ============ PROMOÇÕES ============ */
+
+// Em dobro, por dia da semana (0=Dom ... 6=Sáb)
+const DOBRO = {
+  3: ['Gin em dobro'],
+  4: ['Gin em dobro'],
+  6: ['Caipirinha de limão com cachaça em dobro', 'Chopp em dobro']
+};
+
+// Happy Hour: segunda a sexta, das 17h às 20h
+const HH = { dias: [1,2,3,4,5], inicio: 17, fim: 20 };
+
+// Busca preços direto do MENU (se mudar o preço lá, muda aqui)
+const preco = (sec, nome, idx) => {
+  const it = MENU.find(s => s.id === sec).items.find(i => i.n === nome);
+  return Array.isArray(it.p) ? it.p[idx || 0] : it.p;
+};
+const precoGin = h => MENU.find(s => s.id === 'gins').groups.find(g => g.h === h).p;
+
+// Itens escolhidos. "de" = preço normal; "por" (opcional) = preço fixo do happy hour.
+const HH_ITENS = [
+  {g:'Drinks',   n:'Caipirinha simples · cachaça', de:25},   // mesmos preços da aba Caipirinhas (simples)
+  {g:'Drinks',   n:'Caipirinha simples · sakê',    de:29},
+  {g:'Drinks',   n:'Caipirinha simples · vodka',   de:31},
+  {g:'Drinks',   n:'Gin tônica',                   de:precoGin('Gin tônica')},
+  {g:'Drinks',   n:'Gin com energético',           de:precoGin('Com energético')},
+  {g:'Drinks',   n:'Aperol Spritz',                de:preco('classicos','Aperol Spritz')},
+  {g:'Drinks',   n:'Mojito',                       de:preco('classicos','Mojito')},
+  {g:'Cervejas', n:'Chopp',                        de:preco('cervejas','Chopp')},
+  {g:'Bolinhos', n:'Bolinho de linguiça',          de:preco('bolinhos','Bolinho de linguiça')},
+  {g:'Bolinhos', n:'Porpeta',                      de:preco('bolinhos','Porpeta')},
+  {g:'Bolinhos', n:'Bolinho de costela',           de:preco('bolinhos','Bolinho de costela')},
+  {g:'Porções',  n:'Batata (média)',               de:preco('porcoes','Batata',0)},
+  {g:'Porções',  n:'Anel de cebola (média)',       de:preco('porcoes','Anel de cebola',0)},
+  {g:'Porções',  n:'12 mini pastéis',              de:preco('porcoes','12 mini pastéis',1)}
+];
+
+function agoraBR() {
+  const p = new Intl.DateTimeFormat('en-US', {timeZone:'America/Sao_Paulo', weekday:'short', hour:'numeric', hourCycle:'h23'}).formatToParts(new Date());
+  const dia = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.find(x => x.type === 'weekday').value);
+  const hora = +p.find(x => x.type === 'hour').value;
+  return {
+    dia:  AJUSTES_PROMOS.diaTeste  != null ? AJUSTES_PROMOS.diaTeste  : dia,
+    hora: AJUSTES_PROMOS.horaTeste != null ? AJUSTES_PROMOS.horaTeste : hora
+  };
+}
+
+function renderPromos() {
+  const el = document.getElementById('promos');
+  if (!el) return;
+  const {dia, hora} = agoraBR();
+  let html = '';
+
+  if (CONFIG_PROMOS.dobroAtivo && DOBRO[dia]) {
+    html += `<div class="promo"><div class="note">Promoção de hoje</div>${DOBRO[dia].map(t => `<div class="ptitle">${t}</div>`).join('')}</div>`;
+  }
+
+  if (CONFIG_PROMOS.happyHourAtivo && HH.dias.includes(dia) && hora >= HH.inicio && hora < HH.fim) {
+    const grupos = {};
+    HH_ITENS.forEach(i => {
+      const por = i.por != null ? i.por : Math.round(i.de * (100 - AJUSTES_PROMOS.descontoHH)) / 100;
+      (grupos[i.g] = grupos[i.g] || []).push({n:i.n, de:i.de, por});
+    });
+    html += `<div class="promo hh"><div class="note">Seg a sex · ${HH.inicio}h às ${HH.fim}h</div><div class="ptitle">Happy Hour</div>` +
+      Object.entries(grupos).map(([g, lista]) =>
+        `<div class="ghead"><b>${g}</b></div>` + lista.map(i =>
+          `<div class="row"><div class="info"><div class="name">${i.n}</div></div><div class="price"><span class="was">${R(i.de)}</span>${R(i.por)}</div></div>`).join('')
+      ).join('') + `</div>`;
+  }
+
+  el.innerHTML = html;
+}
+renderPromos();
+setInterval(renderPromos, 60000); // atualiza sozinho na virada de horário
+</script>
+</body
