@@ -84,6 +84,22 @@
   .three .price{font-size:1.4rem}
   .r3{flex-wrap:wrap;align-items:center;row-gap:2px}
   .r3 .full{flex:0 0 100%;margin-top:0}
+
+  /* ===== PROMOÇÕES (blocos fixos no topo) ===== */
+  #promos:empty{display:none}
+  #promos{padding-top:18px;display:grid;gap:12px}
+  .promo{background:var(--panel);border:1px solid var(--gold);border-radius:16px;padding:16px 18px;text-align:center}
+  .promo .note{margin:0 0 2px}
+  .promo .ptitle{font-family:'Bebas Neue';font-size:clamp(2rem,9vw,2.6rem);line-height:1.05;letter-spacing:.04em;color:var(--price)}
+  .promo .psub{font-size:.9rem;color:var(--soft);margin-top:2px}
+  .promo .ptitle + .ptitle{margin-top:4px}
+  .promo.hh{text-align:left}
+  .promo.hh .ptitle{text-align:center;margin-bottom:4px}
+  .promo.hh .note{text-align:center}
+  .hh .ghead{margin-top:10px;padding-top:10px}
+  .hh .row{padding:10px 0;align-items:baseline}
+  .hh .name{font-size:1.35rem}
+  .hh .was{font-family:'Bebas Neue';font-size:1.1rem;color:#6f6b60;text-decoration:line-through;margin-right:8px}
 </style>
 </head>
 <body>
@@ -98,6 +114,8 @@
     <a class="act" href="https://search.google.com/local/writereview?placeid=ChIJpfjlskBnv5QR_dJiqKo5Krk" target="_blank" rel="noopener">Avaliar no Google</a>
   </div>
 </header>
+
+<div class="wrap" id="promos" aria-live="polite"></div>
 
 <nav><div id="tabs"></div></nav>
 
@@ -115,6 +133,18 @@
 </footer>
 
 <script>
+/* ============ CHAVES DAS PROMOÇÕES (edite direto no GitHub) ============ */
+const CONFIG_PROMOS = {
+  dobroAtivo: true,     // true para ativar os itens em dobro (qua/qui: Gin | sáb: Caipirinha e Chopp)
+  happyHourAtivo: true  // true para ativar o Happy Hour (seg a sex, 17h às 20h)
+};
+const AJUSTES_PROMOS = {
+  descontoHH: 20,   // % de desconto do Happy Hour (itens sem preço fixo "por")
+  diaTeste: null,   // para testar: 0=Dom 1=Seg 2=Ter 3=Qua 4=Qui 5=Sex 6=Sáb (null = dia real)
+  horaTeste: null   // para testar: 0 a 23 (null = hora real)
+};
+/* ======================================================================= */
+
 const R = n => n==null ? '<span class="dim">—</span>' : 'R$ ' + n.toFixed(2).replace('.', ',');
 
 const MENU = [
@@ -247,6 +277,88 @@ function show(id, jump) {
 }
 
 show(MENU[0].id, false);
+
+/* ============ PROMOÇÕES ============ */
+
+// Em dobro, por dia da semana (0=Dom ... 6=Sáb)
+const DOBRO = {
+  3: ['Gin em dobro'],
+  4: ['Gin em dobro'],
+  6: ['Caipirinha de limão com cachaça em dobro', 'Chopp em dobro']
+};
+
+// Happy Hour: segunda a sexta, das 17h às 20h
+const HH = { dias: [1,2,3,4,5], inicio: 17, fim: 20 };
+
+// Busca preços direto do MENU (se mudar o preço lá, muda aqui)
+const preco = (sec, nome, idx) => {
+  const it = MENU.find(s => s.id === sec).items.find(i => i.n === nome);
+  return Array.isArray(it.p) ? it.p[idx || 0] : it.p;
+};
+const precoGin = h => MENU.find(s => s.id === 'gins').groups.find(g => g.h === h).p;
+
+// Itens escolhidos. "de" = preço normal; "por" (opcional) = preço fixo do happy hour.
+const HH_ITENS = [
+  {g:'Drinks',   n:'Caipirinha simples · cachaça', de:25},   // mesmos preços da aba Caipirinhas (simples)
+  {g:'Drinks',   n:'Caipirinha simples · sakê',    de:29},
+  {g:'Drinks',   n:'Caipirinha simples · vodka',   de:31},
+  {g:'Drinks',   n:'Gin tônica',                   de:precoGin('Gin tônica')},
+  {g:'Drinks',   n:'Gin com energético',           de:precoGin('Com energético')},
+  {g:'Drinks',   n:'Aperol Spritz',                de:preco('classicos','Aperol Spritz')},
+  {g:'Drinks',   n:'Mojito',                       de:preco('classicos','Mojito')},
+  {g:'Cervejas', n:'Chopp',                        de:preco('cervejas','Chopp')},
+  {g:'Bolinhos', n:'Bolinho de linguiça',          de:preco('bolinhos','Bolinho de linguiça')},
+  {g:'Bolinhos', n:'Porpeta',                      de:preco('bolinhos','Porpeta')},
+  {g:'Bolinhos', n:'Bolinho de costela',           de:preco('bolinhos','Bolinho de costela')},
+  {g:'Porções',  n:'Batata (média)',               de:preco('porcoes','Batata',0)},
+  {g:'Porções',  n:'Anel de cebola (média)',       de:preco('porcoes','Anel de cebola',0)},
+  {g:'Porções',  n:'12 mini pastéis',              de:preco('porcoes','12 mini pastéis',1)}
+];
+
+function agoraBR() {
+  const p = new Intl.DateTimeFormat('en-US', {timeZone:'America/Sao_Paulo', weekday:'short', hour:'numeric', hourCycle:'h23'}).formatToParts(new Date());
+  const dia = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.find(x => x.type === 'weekday').value);
+  const hora = +p.find(x => x.type === 'hour').value;
+  return {
+    dia:  AJUSTES_PROMOS.diaTeste  != null ? AJUSTES_PROMOS.diaTeste  : dia,
+    hora: AJUSTES_PROMOS.horaTeste != null ? AJUSTES_PROMOS.horaTeste : hora
+  };
+}
+
+function renderPromos() {
+  const el = document.getElementById('promos');
+  if (!el) return;
+  const {dia, hora} = agoraBR();
+  let html = '';
+
+  if (CONFIG_PROMOS.dobroAtivo && DOBRO[dia]) {
+    html += `<div class="promo"><div class="note">Promoção de hoje</div>${DOBRO[dia].map(t => `<div class="ptitle">${t}</div>`).join('')}</div>`;
+  }
+
+  if (CONFIG_PROMOS.happyHourAtivo && HH.dias.includes(dia) && hora >= HH.inicio && hora < HH.fim) {
+    const grupos = {};
+    HH_ITENS.forEach(i => {
+      const por = i.por != null ? i.por : Math.round(i.de * (100 - AJUSTES_PROMOS.descontoHH)) / 100;
+      (grupos[i.g] = grupos[i.g] || []).push({n:i.n, de:i.de, por});
+    });
+    html += `<div class="promo hh"><div class="note">Seg a sex · ${HH.inicio}h às ${HH.fim}h</div><div class="ptitle">Happy Hour</div>` +
+      Object.entries(grupos).map(([g, lista]) =>
+        `<div class="ghead"><b>${g}</b></div>` + lista.map(i =>
+          `<div class="row"><div class="info"><div class="name">${i.n}</div></div><div class="price"><span class="was">${R(i.de)}</span>${R(i.por)}</div></div>`).join('')
+      ).join('') + `</div>`;
+  }
+
+  el.innerHTML = html;
+}
+renderPromos();
+setInterval(renderPromos, 60000); // atualiza sozinho na virada de horário
 </script>
 </body>
 </html>
+de hoje</div>${DOBRO[dia].map(t => `<div class="ptitle">${t}</div>`).join('')}</div>`;
+  }
+
+  if (CONFIG_PROMOS.happyHourAtivo && HH.dias.includes(dia) && hora >= HH.inicio && hora < HH.fim) {
+    const grupos = {};
+    HH_ITENS.forEach(i => {
+      const por = i.por != null ? i.por : Math.round(i.de * (100 - AJUSTES_PROMOS.descontoHH
