@@ -133,7 +133,7 @@
 
 /* ============ PROMOÇÕES: ligue ou desligue aqui (true / false) ============ */
 const CONFIG_PROMOS = {
-  dobroAtivo: true,       // true = o "Em dobro" aparece sozinho nos dias certos; false = desliga
+  dobroAtivo: false,      // true = o "Em dobro" aparece sozinho nos dias certos; false = desliga
   happyHourAtivo: false,  // true para ativar o Happy Hour (segunda a sexta)
   diaTeste: null          // só para testar: 0=dom, 1=seg, 3=qua, 4=qui, 6=sáb (deixe null)
 };
@@ -214,8 +214,17 @@ const MENU = [
     {n:'Aperol Spritz', d:'Aperol, espumante, água com gás e suco de laranja.', p:25.9},
     {n:'Mojito', d:'Rum branco, suco de limão, hortelã e água com gás.', p:25.9}
   ]},
+  { id:'doses', title:'Doses', items:[
+    {n:'Licor 43', p:25},
+    {n:'Campari', p:25},
+    {n:'Ballena', p:25},
+    {n:'Smirnoff', p:15},
+    {n:'Tanqueray', p:20},
+    {n:'Sagatiba', p:10}
+  ]},
   { id:'cervejas', title:'Cervejas', note:'Garrafa 600 ml (exceto chopp)', items:[
     {n:'Heineken', p:17.9},
+    {n:'Stella sem glúten', p:16.9},
     {n:'Antarctica Original', p:15.9},
     {n:'Eisenbahn', p:13.9},
     {n:'Antarctica Boa', p:11.9},
@@ -324,9 +333,4 @@ show(MENU[0].id, false);
   const itens = CONFIG_PROMOS.dobroAtivo ? (DOBRO_DIAS[dia] || []) : [];
   if (!itens.length) return;
   const el = document.getElementById('promoDobro');
-  el.innerHTML = `<div class="promo"><div class="k">Promoção de hoje · ${DIA_NOME[dia] || ''}</div><h2>Em dobro</h2><div class="rule">${DOBRO_REGRA}</div><ul>${itens.map(t => `<li>${t.replace(' em dobro', '')} <span>em dobro</span></li>`).join('')}</ul></div>`;
-  el.hidden = false;
-})();
-</script>
-</body>
-</
+  el.innerHTML = `<div class="promo"><div class="k">Promoção de hoje · ${
